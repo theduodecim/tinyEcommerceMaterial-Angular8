@@ -1,0 +1,52 @@
+<div *ngIf="productsService.Data.cartList.length == 0">
+  <mat-chip-list>
+    <mat-chip color="warn" selected="true">YOU HAVE NO ITEMS IN YOUR SHOPPING CART.</mat-chip>
+  </mat-chip-list>
+  <a [routerLink]="['/']" mat-raised-button color="primary" class="mt-2">Continue shopping</a>
+</div>
+
+
+<mat-card *ngIf="productsService.Data.cartList?.length > 0" class="p-0">
+
+
+  <!-- Product -->
+  <div fxLayout="row" fxLayoutAlign="start stretch" *ngFor="let product of productsService.Data.cartList">
+    <mat-card style="border-color: blue;">
+      <table fxLayoutAlign="end center">
+        <tr>
+          <th>Name</th>
+          <td>{{product.name}}</td>
+        </tr>
+        <tr>
+          <th>Price</th>
+          <td>${{product.newPrice}} <span style="color: lightgreen;" *ngIf="product.discount"> %{{product.discount}}
+              Discount!</span>
+          </td>
+
+        </tr>
+        <tr>
+          <td><img [src]="product.images[0].small"></td>
+        </tr>
+        <tr>
+          <div>
+            <app-controls [product]="product" [type]="'wish'" (onQuantityChange)="getTotalPrice($event)"></app-controls>
+            <br>
+            <br>
+            <button mat-mini-fab color="warn" (click)="remove(product)" matTooltip="Clear">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </tr>
+      </table>
+    </mat-card>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center start" class="grand-total">
+    <p>Total ${{ grandTotal  | number : '1.2-2'}}</p>
+    <mat-divider></mat-divider>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center start" class="grand-total">
+    <div class="text-center"><a [routerLink]="['/checkout']" mat-raised-button color="primary">Proceed To
+        Checkout</a></div>
+  </div>
+
+</mat-card>

@@ -1,0 +1,164 @@
+<div *ngIf="!loadingReady">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center"
+    class="filter-row mat-elevation-z1 text-muted" fxFlexOffset="40">
+    <h1> Loading Product </h1>
+    <mat-progress-spinner class="example-margin" [color]="'primary'" [mode]="'indeterminate'" [value]="50">
+    </mat-progress-spinner>
+  </div>
+</div>
+
+<div *ngIf="loadingReady" class="dataReady">
+  <div fxLayout="row wrap">
+    <!-- Image and Swiper Carousel -->
+    <div fxFlex="100" fxFlex.gt-md="35" fxFlex.md="45">
+      <mat-card class="product-image">
+        <img *ngIf="image" [src]="image">
+      </mat-card>
+      <mat-divider></mat-divider>
+      <br>
+      <mat-grid-list cols="4" rowHeight="50px" rowWidth="50px">
+        <mat-grid-tile *ngFor="let img of product.images" [colspan]="1" [rowspan]="2">
+          <mat-card class="product-image">
+            <img [src]="img.small">
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+
+    <div fxFlex="100" fxFlex.gt-md="45" fxFlex.md="55" ngClass.gt-sm="px-3 m-0" ngClass.sm="mt-2" ngClass.xs="mt-2">
+      <h2>{{product?.name}}</h2>
+      <div class="py-1 lh">
+        <p><span class="text-muted fw-500">Category:
+          </span><span> {{product.category}} </span></p>
+        <p><span class="text-muted fw-500">Availibility:
+          </span><span>{{ (product?.availibilityCount > 0) ? 'In stock':'Unavailable'}}</span></p>
+      </div>
+      <div class="py-1">
+      </div>
+      <p class="py-1 text-muted lh">{{product?.description}}</p>
+
+      <div class="divider mt-1"></div>
+      <h2 class="py-2 new-price">${{product?.newPrice}}</h2>
+      <div class="py-1">
+        <app-controls [product]="product" [type]="'all'"></app-controls>
+      </div>
+
+      <div class="divider"></div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted py-1">
+      </div>
+    </div>
+    <!-- left panel -->
+    <div fxFlex="100" fxFlex.gt-md="20" fxHide fxShow.gt-md>
+      <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-0">
+        <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50">
+          <mat-card class="light-block" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="mat-icon-xlg text-muted m-0">card_giftcard</mat-icon>
+            <div class="content">
+              <p>BONUS PLUS</p>
+              <span class="text-muted m-0">Make fun of shopping and collect bonuses</span>
+            </div>
+          </mat-card>
+        </div>
+        <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50" class="mt-16">
+          <mat-card class="light-block" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="mat-icon-xlg text-muted m-0">local_shipping</mat-icon>
+            <div class="content">
+              <p>FREE SHIPPING</p>
+              <span class="text-muted m-0">Free shipping on all orders over $99</span>
+            </div>
+          </mat-card>
+        </div>
+        <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50" class="mt-16">
+          <mat-card class="light-block" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="mat-icon-xlg text-muted m-0">monetization_on</mat-icon>
+            <div class="content">
+              <p>MONEY BACK GUARANTEE</p>
+              <span class="text-muted m-0">30 Days money return guarantee</span>
+            </div>
+          </mat-card>
+        </div>
+        <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50" class="mt-16">
+          <mat-card class="light-block" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="mat-icon-xlg text-muted m-0">history</mat-icon>
+            <div class="content">
+              <p>ONLINE SUPPORT 24/7</p>
+              <span class="text-muted m-0">Call us: (+100) 123 456 7890</span>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- DescriptionAdditional information Reviews Tab Box -->
+  <div fxLayout="row wrap" class="mt-2">
+    <div fxFlex="100" fxFlex.gt-md="78" fxFlex.md="74">
+      <mat-card>
+        <mat-tab-group [@.disabled]="true" [selectedIndex]="0">
+          <mat-tab label="Description">
+            <div class="full-desc lh">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id nulla metus. Maecenas
+                commodo turpis dui, porttitor tincidunt enim mollis a. Curabitur eu velit mi. Nullam congue
+                turpis id metus sollicitudin, id cursus nulla laoreet. Proin commodo eu felis at malesuada.
+                Nulla ac facilisis justo, eget vulputate ex. Nulla nec laoreet nulla. Cras auctor leo at
+                diam congue, quis convallis urna pulvinar. Nunc ut mi nulla. Nunc ligula massa, vulputate
+                sed scelerisque sit amet, dapibus semper est. Sed sed blandit turpis. Vestibulum id
+                porttitor ligula, at iaculis ligula. Pellentesque vel tellus sit amet mauris aliquet
+                bibendum id et lorem.</p>
+              <ul class="px-2 mt-1">
+                <li>Phasellus eu justo dictum, varius eros ut, posuere sapien.</li>
+                <li>Nulla eu erat sit amet enim lobortis rhoncus.</li>
+                <li>Etiam eu mauris in massa convallis ornare non id ex.</li>
+                <li>Nam sagittis augue at pretium pharetra.</li>
+                <li>Sed a sem id massa egestas porta a sit amet felis.</li>
+                <li>Duis aliquam urna in sapien cursus consequat.</li>
+              </ul>
+              <p class="mt-1">Duis eu felis ultricies urna pharetra efficitur nec non elit. Class aptent
+                taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur
+                posuere eu justo eget mollis. Sed semper accumsan urna vel rutrum. Nulla condimentum quis
+                lacus ut semper. Quisque at massa pretium, porta ligula ut, rutrum elit. Pellentesque et
+                orci sit amet dolor laoreet tempor sed eu sem. Morbi lacinia pellentesque tellus euismod
+                eleifend.</p>
+              <p class="mt-1">Quisque fringilla eros id ligula luctus, a gravida augue sodales. Sed eget augue
+                ut lectus condimentum volutpat. Morbi quis nunc viverra, gravida arcu quis, varius metus.
+                Praesent tincidunt ipsum est, quis molestie ligula efficitur ut. Nunc interdum erat eu
+                tortor maximus suscipit. Vivamus nec laoreet dui. Nullam dignissim laoreet metus quis
+                pretium.</p>
+            </div>
+          </mat-tab>
+          <mat-tab label="Additional information">
+            <div class="full-desc lh">
+              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.</p>
+              <ul class="px-2 mt-1">
+                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                <li>Aenean vehicula, tortor gravida elementum tincidunt, justo lorem vestibulum ex, eget
+                  egestas arcu tellus in magna. Vivamus gravida, ipsum vel luctus luctus, nisi felis
+                  vestibulum est, nec interdum tellus leo quis tellus. Sed sit amet convallis enim, in
+                  laoreet orci.</li>
+                <li>Donec et elit at nulla congue interdum sit amet varius erat.</li>
+                <li>Nulla sit amet risus pellentesque, dignissim massa ut, dignissim arcu.</li>
+                <li>Morbi dapibus ligula at faucibus tempus. Aenean vehicula, tortor gravida elementum
+                  tincidunt, justo lorem vestibulum ex, eget egestas arcu tellus in magna. Vivamus
+                  gravida, ipsum vel luctus luctus, nisi felis vestibulum est, nec interdum tellus leo
+                  quis tellus. Sed sit amet convallis enim, in laoreet orci.</li>
+                <li>Nunc sodales justo ut nisi euismod, quis condimentum leo varius.</li>
+              </ul>
+              <ul class="px-2 mt-1">
+                <li>Phasellus eu justo dictum, varius eros ut, posuere sapien.</li>
+                <li>Nulla eu erat sit amet enim lobortis rhoncus.</li>
+                <li>Etiam eu mauris in massa convallis ornare non id ex.</li>
+                <li>Nam sagittis augue at pretium pharetra.</li>
+                <li>Sed a sem id massa egestas porta a sit amet felis.</li>
+                <li>Duis aliquam urna in sapien cursus consequat. Aenean vehicula, tortor gravida elementum
+                  tincidunt, justo lorem vestibulum ex, eget egestas arcu tellus in magna. Vivamus
+                  gravida, ipsum vel luctus luctus, nisi felis vestibulum est, nec interdum tellus leo
+                  quis tellus. Sed sit amet convallis enim, in laoreet orci.</li>
+              </ul>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card>
+    </div>
+  </div>
+</div>
